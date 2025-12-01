@@ -1,0 +1,34 @@
+com.lostfinder.backend
+ ├── global
+ │    ├── config
+ │    ├── exception
+ │    ├── util
+ │    └── security (JWT)
+ │
+ ├── member
+ │    ├── controller
+ │    ├── service
+ │    ├── repository
+ │    ├── domain
+ │    └── dto
+ │
+ ├── post
+ │    ├── controller
+ │    ├── service
+ │    ├── repository
+ │    ├── domain
+ │    └── dto
+ │
+ ├── category
+ │    ├── controller
+ │    ├── service
+ │    ├── repository
+ │    ├── domain
+ │    └── dto
+ │
+ └── image
+      ├── controller
+      ├── service
+      ├── repository
+      ├── domain
+      └── dto

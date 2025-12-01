@@ -1,4 +1,4 @@
-package com.workdiary.backend;
+package com.lostfinder.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

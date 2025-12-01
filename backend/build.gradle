@@ -4,9 +4,15 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.workdiary'
+group = 'com.lostfinder'
 version = '0.0.1-SNAPSHOT'
 description = 'backend'
+
+ext {
+    querydslVersion = '7.0'
+    springdocVersion = '2.8.14'
+    jjwtVersion = '0.12.7'
+}
 
 java {
     toolchain {
@@ -33,6 +39,20 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Swagger
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-api:${springdocVersion}"
+
+    // Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // Jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 tasks.named('test') {

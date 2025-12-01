@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/umc?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: root
+    password: "dkttkfkqldk!2"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+      show-sql: true
+
+jwt:
+  token:
+    secretKey: "ABCD1234ABCD1234ABCD1234ABCD1234"
+    expiration:
+      access: 14400000
