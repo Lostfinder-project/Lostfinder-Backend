@@ -1,0 +1,63 @@
+package com.lostfinder.backend.post.service;
+
+import com.lostfinder.backend.category.domain.Category;
+import com.lostfinder.backend.category.repository.CategoryRepository;
+import com.lostfinder.backend.global.exception.CustomException;
+import com.lostfinder.backend.global.exception.ErrorCode;
+import com.lostfinder.backend.global.util.FileUtil;
+import com.lostfinder.backend.member.domain.Member;
+import com.lostfinder.backend.member.repository.MemberRepository;
+import com.lostfinder.backend.post.domain.Post;
+import com.lostfinder.backend.post.dto.PostReqDTO;
+import com.lostfinder.backend.post.dto.PostResDTO;
+import com.lostfinder.backend.post.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class PostService {
+    private final PostRepository postRepository;
+    private final CategoryRepository categoryRepository;
+    private final FileUtil fileUtil;
+    private MemberRepository memberRepository;
+
+    public PostResDTO.CreateResult createPost(PostReqDTO.CreatePost dto,
+                                              MultipartFile imageFile,
+                                              Long memberId) {
+        //  로그인 사용자 검증
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        //  이미지 저장 (null 처리)
+        String imageUrl = (imageFile != null && !imageFile.isEmpty())
+                ? fileUtil.saveImage(imageFile)
+                : null;
+
+        Category category = categoryRepository.findById(dto.categoryId())
+                .orElse(null);
+
+        Post post = Post.builder()
+                .title(dto.title())
+                .content(dto.content())
+                .foundLocation(dto.foundLocation())
+                .foundTime(LocalDateTime.parse(dto.foundTime()))
+                .imageUrl(imageUrl)
+                .category(category)
+                .member(member)
+                .build();
+
+        postRepository.save(post);
+
+        return PostResDTO.CreateResult.builder()
+                .postId(post.getId())
+                .title(post.getTitle())
+                .imageUrl(post.getImageUrl())
+                .build();
+    }
+}

@@ -10,14 +10,18 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create        # ⬅ create → update 로 권장
     properties:
       hibernate:
         format_sql: true
-      show-sql: true
+    show-sql: true             # ⬅ 위치 수정 권장
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
 
 jwt:
-  token:
-    secretKey: "ABCD1234ABCD1234ABCD1234ABCD1234"
-    expiration:
-      access: 14400000
+  secret: "ASDFQWERZXCV123412341234ABCDABCD"
+  access-expire: 14400000
