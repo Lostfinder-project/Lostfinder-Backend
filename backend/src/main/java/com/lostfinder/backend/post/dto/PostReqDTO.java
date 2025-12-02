@@ -21,9 +21,6 @@ public class PostReqDTO {
             @Schema(description = "발견 위치", example = "학생회관 앞")
             String foundLocation,
 
-            @Schema(description = "발견 시간", example = "2025-12-02T12:30:00")
-            String foundTime,
-
             @Schema(description = "카테고리 ID", example = "1")
             Long categoryId
     ) {}

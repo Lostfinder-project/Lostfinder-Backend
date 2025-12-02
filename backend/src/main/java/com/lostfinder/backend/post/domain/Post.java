@@ -32,10 +32,6 @@ public class Post extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String foundLocation;
 
-    // 물건을 발견한 시간
-    @Column(nullable = false)
-    private LocalDateTime foundTime;
-
     // 글 작성자
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)

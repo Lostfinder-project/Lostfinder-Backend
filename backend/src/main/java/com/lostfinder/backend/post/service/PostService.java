@@ -25,7 +25,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final CategoryRepository categoryRepository;
     private final FileUtil fileUtil;
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     public PostResDTO.CreateResult createPost(PostReqDTO.CreatePost dto,
                                               MultipartFile imageFile,
@@ -46,7 +46,6 @@ public class PostService {
                 .title(dto.title())
                 .content(dto.content())
                 .foundLocation(dto.foundLocation())
-                .foundTime(LocalDateTime.parse(dto.foundTime()))
                 .imageUrl(imageUrl)
                 .category(category)
                 .member(member)

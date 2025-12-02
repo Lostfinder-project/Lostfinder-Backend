@@ -14,7 +14,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    show-sql: true             # ⬅ 위치 수정 권장
+    show-sql: false             # ⬅ 위치 수정 권장
 
   servlet:
     multipart:

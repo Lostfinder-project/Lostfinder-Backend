@@ -5,6 +5,10 @@ import com.lostfinder.backend.global.common.ApiResponse;
 import com.lostfinder.backend.post.dto.PostReqDTO;
 import com.lostfinder.backend.post.dto.PostResDTO;
 import com.lostfinder.backend.post.service.PostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,9 +22,12 @@ public class PostController {
 
     private final PostService postService;
 
+    @Operation(summary = "글 작성", description = "글 정보(JSON)와 이미지 파일을 multipart/form-data 형태로 전송합니다.")
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<PostResDTO.CreateResult> createPost(
+            @Parameter(description = "글 정보 JSON", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PostReqDTO.CreatePost.class)))
             @RequestPart("data") PostReqDTO.CreatePost dto,
+            @Parameter(description = "첨부 이미지 파일", content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE, schema = @Schema(type = "string", format = "binary")))
             @RequestPart(value = "image", required = false) MultipartFile imageFile,
             @AuthenticationPrincipal CustomUserDetails member
     ) {
