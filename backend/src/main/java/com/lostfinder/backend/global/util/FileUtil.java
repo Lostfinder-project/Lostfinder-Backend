@@ -10,7 +10,7 @@ import java.util.UUID;
 @Component
 public class FileUtil {
 
-    private static final String UPLOAD_DIR = "uploads/";
+    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";;
 
     public String saveImage(MultipartFile file) {
         if (file == null || file.isEmpty()) return null;

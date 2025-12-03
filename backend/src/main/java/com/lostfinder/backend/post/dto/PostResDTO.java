@@ -11,6 +11,14 @@ public class PostResDTO {
             String imageUrl
     ) {}
 
+    public record PostListResDTO(
+       Long postId,
+       String title,
+       String imageUrl,
+       String category,
+       String createAt
+    ){}
+
     @Builder
     public record Detail(
             Long id,
@@ -18,8 +26,12 @@ public class PostResDTO {
             String content,
             String imageUrl,
             String foundLocation,
-            String foundTime,
             String writerName,
             String writerPhone
     ) {}
+
+    public record Contact(
+            String writerName,
+            String writerPhone
+    ){}
 }

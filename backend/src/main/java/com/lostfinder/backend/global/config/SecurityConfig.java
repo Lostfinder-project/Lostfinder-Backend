@@ -20,7 +20,8 @@ public class SecurityConfig {
     private final String[] PUBLIC_URIS = {
             "/api/auth/**",    // 로그인, 회원가입
             "/swagger-ui/**",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
+            "/uploads/**"
     };
 
     @Bean

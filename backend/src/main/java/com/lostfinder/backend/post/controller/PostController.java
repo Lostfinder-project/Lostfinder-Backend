@@ -2,6 +2,7 @@ package com.lostfinder.backend.post.controller;
 
 import com.lostfinder.backend.global.auth.CustomUserDetails;
 import com.lostfinder.backend.global.common.ApiResponse;
+import com.lostfinder.backend.global.common.PageResponse;
 import com.lostfinder.backend.post.dto.PostReqDTO;
 import com.lostfinder.backend.post.dto.PostResDTO;
 import com.lostfinder.backend.post.service.PostService;
@@ -10,6 +11,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +39,28 @@ public class PostController {
         return ApiResponse.success(result);
     }
 
+    @GetMapping
+    public PageResponse<PostResDTO.PostListResDTO> getAllPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return postService.getAllPosts(pageRequest);
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<PostResDTO.Detail> getPostDetail(
+            @PathVariable long id
+    ) {
+        PostResDTO.Detail detail = postService.getPostDetails(id).getData();
+        return ApiResponse.success(detail);
+    }
+
+    @GetMapping("/{id}/contact")
+    public ApiResponse<PostResDTO.Contact> getPostContact(
+            @PathVariable long id
+    ){
+        PostResDTO.Contact contact = postService.getPostContact(id).getData();
+        return ApiResponse.success(contact);
+    }
 }
