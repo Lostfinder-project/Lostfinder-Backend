@@ -27,7 +27,9 @@ public class PostResDTO {
             String imageUrl,
             String foundLocation,
             String writerName,
-            String writerPhone
+            String writerPhone,
+            double lat,
+            double lng
     ) {}
 
     public record Contact(

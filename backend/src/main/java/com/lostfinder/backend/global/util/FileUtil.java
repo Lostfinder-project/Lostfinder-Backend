@@ -1,5 +1,6 @@
 package com.lostfinder.backend.global.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,9 @@ public class FileUtil {
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";;
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
     public String saveImage(MultipartFile file) {
         if (file == null || file.isEmpty()) return null;
 
@@ -22,9 +26,13 @@ public class FileUtil {
         File dest = new File(UPLOAD_DIR + filename);
         try {
             file.transferTo(dest);
-            return "/uploads/" + filename;   // 클라이언트가 접근할 URL
+            return filename;
         } catch (IOException e) {
             throw new RuntimeException("이미지 저장 실패", e);
         }
+    }
+    // 절대 URL
+    public String getFileUrl(String fileName) {
+        return baseUrl + "/uploads/" + fileName;
     }
 }

@@ -27,6 +27,11 @@ spring:
       max-file-size: 20MB
       max-request-size: 20MB
 
+app:
+  base-url: http://172.16.83.59:8080
+
 jwt:
   secret: "ASDFQWERZXCV123412341234ABCDABCD"
   access-expire: 14400000
+server:
+  address: 0.0.0.0

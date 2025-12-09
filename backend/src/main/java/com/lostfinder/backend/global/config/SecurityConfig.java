@@ -18,7 +18,7 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
     private final String[] PUBLIC_URIS = {
-            "/api/auth/**",    // 로그인, 회원가입
+            "/api/members/**",   // 회원가입 / 로그인 허용
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/uploads/**"
