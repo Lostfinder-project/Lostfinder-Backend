@@ -6,8 +6,6 @@ import com.lostfinder.backend.category.domain.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @NoArgsConstructor

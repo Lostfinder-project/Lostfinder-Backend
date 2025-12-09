@@ -1,11 +1,6 @@
 package com.lostfinder.backend.post.dto;
-
-import com.lostfinder.backend.post.domain.Post;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class PostReqDTO {
 
