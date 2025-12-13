@@ -1,11 +1,6 @@
 package com.lostfinder.backend.post.dto;
-
-import com.lostfinder.backend.post.domain.Post;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class PostReqDTO {
 
@@ -18,6 +13,10 @@ public class PostReqDTO {
             @Schema(description = "발견 위치", example = "학생회관 앞")
             String foundLocation,
             @Schema(description = "카테고리 ID", example = "1")
-            Long categoryId
+            Long categoryId,
+            @Schema(description = "위도")
+            Double lat,
+            @Schema(description = "경도")
+            Double lng
     ) {}
 }

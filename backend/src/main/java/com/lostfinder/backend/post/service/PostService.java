@@ -15,6 +15,7 @@ import com.lostfinder.backend.post.dto.PostResDTO;
 import com.lostfinder.backend.post.mapper.PostMapper;
 import com.lostfinder.backend.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final PostMapper postMapper;
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
     public PostResDTO.CreateResult createPost(PostReqDTO.CreatePost dto,
                                               MultipartFile imageFile,
                                               Long memberId) {
@@ -38,8 +42,7 @@ public class PostService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-        //  이미지 저장 (null 처리)
-        String imageUrl = (imageFile != null && !imageFile.isEmpty())
+        String savedFilename = (imageFile != null && !imageFile.isEmpty())
                 ? fileUtil.saveImage(imageFile)
                 : null;
 
@@ -50,8 +53,10 @@ public class PostService {
                 .title(dto.title())
                 .content(dto.content())
                 .foundLocation(dto.foundLocation())
-                .imageUrl(imageUrl)
+                .imageUrl(savedFilename)
                 .category(category)
+                .lat(dto.lat())
+                .lng(dto.lng())
                 .member(member)
                 .build();
 
@@ -60,8 +65,9 @@ public class PostService {
         return PostResDTO.CreateResult.builder()
                 .postId(post.getId())
                 .title(post.getTitle())
-                .imageUrl(post.getImageUrl())
+                .imageUrl(savedFilename != null ? baseUrl + "/uploads/" + savedFilename : null)  // ✔ 앱이 받는 값은 절대 URL
                 .build();
+
     }
 
     //모두 조회
