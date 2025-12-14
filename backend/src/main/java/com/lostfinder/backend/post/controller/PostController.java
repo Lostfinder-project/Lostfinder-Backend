@@ -40,12 +40,16 @@ public class PostController {
     }
 
     @GetMapping
-    public PageResponse<PostResDTO.PostListResDTO> getAllPosts(
+    public PageResponse<PostResDTO.PostListResDTO> getPosts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) Long categoryId
     ){
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return postService.getAllPosts(pageRequest);
+        if (categoryId == null) {
+            return postService.getAllPosts(pageRequest);
+        }
+        return postService.getPostsByCategory(pageRequest, categoryId);
     }
 
     @GetMapping("/{id}")

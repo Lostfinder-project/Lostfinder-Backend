@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -89,4 +91,13 @@ public class PostService {
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         return ApiResponse.success(postMapper.toContact(post));
     }
+    public PageResponse<PostResDTO.PostListResDTO> getPostsByCategory(
+            PageRequest pageRequest, Long categoryId
+    ) {
+        return PageResponse.of(
+                postRepository.findByCategory_Id(categoryId, pageRequest),
+                postMapper::toPostAllDTO
+        );
+    }
+
 }

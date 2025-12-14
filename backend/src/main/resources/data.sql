@@ -1,4 +1,6 @@
-INSERT INTO categories (name) VALUES
-                                      ('지갑'),
-                                      ('학생증'),
-                                      ('전자기기');
+-- INSERT INTO categories (name) VALUES
+--                                   ('의류'),
+--                                   ('가방'),
+--                                   ('열쇠'),
+--                                   ('문서'),
+--                                   ('기타');
